@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'Quote.dart';
+import 'quote_card.dart';
 
-void main() =>
-    runApp(MaterialApp(
+void main() => runApp(MaterialApp(
       home: QuoteList(),
     ));
 
@@ -13,9 +13,11 @@ class QuoteList extends StatefulWidget {
 
 class _QuoteListState extends State<QuoteList> {
   List<Quote> quotes = [
-    Quote(author:'Andrew',text:'Be yourself;everyone else is already taken1'),
-    Quote(author:'Andrew',text:'Be yourself;everyone else is already taken2'),
-    Quote(author:'Andrew',text:'Be yourself;everyone else is already taken3')
+    Quote(
+        author: 'Andrew', text: 'Be yourself;everyone else is already taken1'),
+    Quote(
+        author: 'Andrew', text: 'Be yourself;everyone else is already taken2'),
+    Quote(author: 'Andrew', text: 'Be yourself;everyone else is already taken3')
   ];
 
   @override
@@ -28,7 +30,16 @@ class _QuoteListState extends State<QuoteList> {
         backgroundColor: Colors.redAccent,
       ),
       body: Column(
-          children: quotes.map((quote) => Text('${quote.text}')).toList(),
-      ),);
+        children: quotes
+            .map((quote) => QuoteCard(
+                quote: quote,
+                delete: () {
+                  setState(() {
+                    quotes.remove(quote);
+                  });
+                }))
+            .toList(),
+      ),
+    );
   }
 }
